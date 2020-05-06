@@ -1,0 +1,121 @@
+#
+# ini file for tide_anaP.sh
+#
+
+# -----Input/output infos-----
+
+# Work dir 
+ANA_WORKDIR="/work/ag15419/tmp/doodson_Toul/"
+SRC_DIR="/users/home/ag15419/tides_pp/ts_stat_spdist/"
+
+# Input infos
+
+ANA_STARTDATE=20160101
+ANA_ENDDATE=20171231
+
+
+# Comparison between int schemes
+##ANA_INPATHS=( "/work/ag15419/exp/eas5/simu_ctrl0_OldIntScheme/output/" "/work/ag15419/exp/eas5/simu_ctrl0_NewIntScheme1/output/" )
+#ANA_INPATHS=( "/work/ag15419/arc_link/simu_ctrl0_OldScheme/output/" "/work/ag15419/arc_link/simu_ctrl0_NewScheme/output/" )
+#ANA_INFILES_TPL=( "simu_ctrl0_1h_%YYYYMMDD%_grid_V.nc" "simu_ctrl0_NewIntScheme_1h_%YYYYMMDD%_grid_V.nc" )
+#ANA_INTAG=( "Forward Scheme" "Backward Scheme" )
+# Comparison tides/ctrl run
+#ANA_INPATHS=( "/work/ag15419/arc_link/simu_tides4/output/" "/work/ag15419/arc_link/simu_ctrl0_OldScheme/output/" )
+#ANA_INFILES_TPL=( "simu_tides_1h_%YYYYMMDD%_grid_T.nc" "simu_ctrl0_1h_%YYYYMMDD%_grid_T.nc" )
+#ANA_INTAG=( "Tides4 run" "Control run" )
+# Comparison ctrl/tides4/tides8
+#ANA_INPATHS=("/work/ag15419/arc_link/simu_ctrl0_OldScheme/output/" "/work/ag15419/arc_link/simu_tides4/output/" "/work/ec04916/exp/eas5/simu_tides8_2/output/")
+#ANA_INFILES_TPL=( "simu_ctrl0_1h_%YYYYMMDD%_grid_T.nc" "simu_tides_1h_%YYYYMMDD%_grid_T.nc" "simu_tides8_2_1h_%YYYYMMDD%_grid_T.nc" )
+#ANA_INFILES_TPL=( "simu_ctrl0_1h_%YYYYMMDD%_grid_U.nc" "simu_tides_1h_%YYYYMMDD%_grid_U.nc" "simu_tides8_2_1h_%YYYYMMDD%_grid_U.nc" )
+#ANA_INTAG=( "Control run" "Tides4 run" "Tides8 run" )
+# Comparison ctrl/noBDY/tides8
+#ANA_INPATHS=("/work/ag15419/arc_link/simu_ctrl0_OldScheme/output/" "/work/ag15419/exp/eas5/simt_ctrl0_NObdy/output/" "/work/ec04916/exp/eas5/simu_tides8_2/output/")
+#ANA_INFILES_TPL=( "simu_ctrl0_1h_%YYYYMMDD%_grid_T.nc" "simt_ctrl0_1h_%YYYYMMDD%_grid_T.nc" "simu_tides8_2_1h_%YYYYMMDD%_grid_T.nc" )
+#ANA_INTAG=( "Control run" "Tides NO BDY run" "Tides8 run" )
+# Comparison obs/tide8
+#MOD1_FLAG=0
+#ANA_INPATHS=("/work/ec04916/exp/eas5/simu_tides8_2/output/")
+#ANA_INFILES_TPL=("simu_tides8_2_1h_%YYYYMMDD%_grid_T.nc" )
+#ANA_INTAG=( "Tides8 run" )
+
+
+# Extraction
+# WARNING: ANA_INTAG must be a single word (without spaces) because it is used for output file names!  
+# tides4/tides8
+#ANA_INPATHS=("/work/ec04916/exp/eas5/simu_tides8_3/output/" "/work/ag15419/arc_link/simu_tides4/output/" )
+#ANA_INFILES_TPL=("simu_tides8_3_1h_%YYYYMMDD%_grid_T.nc" "simu_tides_1h_%YYYYMMDD%_grid_T.nc" )
+#ANA_INTAG=( "Tides8" "Tides4")
+# tides8
+#ANA_INPATHS=("/work/ag15419/arc_link/simu_tides8_ok/output/")
+#ANA_INFILES_TPL=("simu_tides8_3_1d_%YYYYMMDD%_grid_T.nc")
+#ANA_INTAG=( "Tidal_d_run" )
+# ctr0
+#ANA_INPATHS=( "/work/ag15419/arc_link/simu_ctrl0_OldScheme/output/" )
+#ANA_INFILES_TPL=("simu_ctrl0_1h_%YYYYMMDD%_grid_T.nc" )
+#ANA_INTAG=( "Control_run" )
+# detided tides8
+#ANA_INPATHS=( "/work/ag15419/arc_link/detided_tides8" )
+#ANA_INFILES_TPL=("detDF_sossheig_%YYYYMMDD%_grid_T_mod_Tides8.nc" )
+#ANA_INTAG=( "Detided_run" )
+# detided tides8
+ANA_INPATHS=( "/work/ag15419/arc_link/detidedH_tides8" )
+ANA_INFILES_TPL=("detHDF_sossheig_%YYYYMMDD%_grid_T_mod_Tides_8h.nc" )
+ANA_INTAG=( "HDetided_run" )
+# detided ctrl run
+#ANA_INPATHS=( "/work/ag15419/tmp/doodson_ctrl/" )
+#ANA_INFILES_TPL=("detDF_sossheig_%YYYYMMDD%_grid_T_mod_Control_run.nc" )
+#ANA_INTAG=( "Detided_Ctrl_run" )
+
+
+
+# MOD
+#==============
+# MOD_FLAG= 1 => extraction from model outputs
+MOD_FLAG=0
+HOURLY_FLAG=1
+DAILY_FLAG=0
+#==============
+
+# OBS
+#===============
+# OBS_FLAG=1 TG netCDF ; =2 TG ISPRA txt
+OBS_FLAG=1
+#===============
+
+
+OBS_VAR=( "SLEV" ) # SLEV
+OBS_UDM=( "m" ) # m 
+
+#OBS_TG_PATH=/work/ag15419/tmp/TG_data            # Moved in coo file
+
+# Outputs
+ANA_ARCHIVE=${ANA_WORKDIR}
+
+# -----Ana type-----
+
+FIELDS=( "sossheig" ) # e.g. sossheig, uos 
+UDM=( "m" ) # e.g. m, m/s
+
+
+#### Flag for TS extraction, field list and coo file
+#===============
+TS_FLAG=1
+#===============
+
+
+TS_MODULE="CDO/cdo-1.7.0rc2"
+
+
+TS_FIELDS=$FIELDS
+TS_FIELDS_UDM=$UDM
+
+
+#=================================================
+# netCDF -> obs_point%YYYY%.coo ; txt -> ISPRA.coo
+if [[ $OBS_FLAG == "1" ]] ; then TS_COOFILE=${SRC_DIR}/mod_point2017.coo  ; elif [[ $OBS_FLAG == "2" ]]; then TS_COOFILE=${SRC_DIR}/ISPRA_2017.coo ; elif [[ $OBS_FLAG == "0" ]]; then TS_COOFILE=${SRC_DIR}/mod_point2017.coo ; fi
+#=================================================
+
+#
+LS_MASK=${SRC_DIR}/tmask.nc
+
+

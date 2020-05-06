@@ -1,0 +1,265 @@
+
+
+<mapreduce>
+
+	<map outkey="%VOZOCRTX%" 
+		variable='vozocrtx' 
+		lon_lat_box='DOMAINOFINTEREST1'
+		outfile='_U.nc' 
+		mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0/mesh_mask.nc","umask","e1u","e2u","e3u_0","mbathy"]' 
+		inkey="%KEY_VOZOCRTX%" />
+
+	<reduce outkey="%t_cur_t" variable_out="vozotrax" outfile="%BUT_layers.nc" inkey="_cur_u_l" />
+	
+	<map outkey="%VOMECRTY%"
+		variable='vomecrty'
+		lon_lat_box='DOMAINOFINTEREST1' 
+		outfile='_V.nc'
+		mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0/mesh_mask.nc","vmask","e1v","e2v","e3v_0","mbathy"]'
+		inkey="%KEY_VOMECRTY%" />
+
+	<reduce outkey="%t_cur_t" variable_out="vometray" outfile="%BVT_layers.nc" inkey="_cur_v_l" />
+   	
+	<map outkey="%SOZOTAUX%" 
+		variable='sozotaux'
+		lon_lat_box='DOMAINOFINTEREST1'
+		outfile='sozotaux.nc'
+		mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0/mesh_mask.nc","umask","e1u","e2u","e3u_0","mbathy"]'
+		inkey="%KEY_SOZOTAUX%" />
+
+	<map outkey="%SOMETAUY%"
+		variable='sometauy'
+		lon_lat_box='DOMAINOFINTEREST1'
+		outfile='sometauy.nc'
+		mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0/mesh_mask.nc","vmask","e1v","e2v","e3v_0","mbathy"]'
+		inkey="%KEY_SOMETAUY%" />
+   	
+	<reduce outkey="velw" variable_out='velmodw' outfile='%Bvelmodw.nc' inkey="_cur_w" >
+		<reduce outkey="%t_cur_w" variable_out="sozotrax" outfile="%Bsozotrax.nc" inkey="_cur_uw" />
+		<reduce outkey="%t_cur_w" variable_out="sometray" outfile="%Bsometray.nc" inkey="_cur_vw" />
+	</reduce>
+   	
+<!-- Gibraltar -->
+
+	<reduce outkey="tra_t_gb_ts.nc" outfile="%Btra_t_gb.nc" variable_out="transptx" lon_lat_box='%V_TRANSECT_TRA%' inkey="_sec_u_all" />
+	
+	<reduce outkey="tra_p_gb_ts.nc" outfile="%Btra_p_gb.nc" variable_out="transppx" lon_lat_box='%V_TRANSECT_TRA%' inkey="_sec_u_all" />
+
+	<reduce outkey="tra_n_gb_ts.nc" outfile="%Btra_n_gb.nc" variable_out="transpnx" lon_lat_box='%V_TRANSECT_TRA%' inkey="_sec_u_all" />
+
+<!-- Sicily -->
+
+	<reduce outkey="tra_t_sc_ts.nc" outfile="%Btra_t_sc.nc" variable_out="transpty" lon_lat_box='[  [[9.91,14.46 ], [36.95,36.96]] , ["d", [[0.5,1050]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_p_sc_ts.nc" outfile="%Btra_p_sc.nc" variable_out="transppy" lon_lat_box='[  [[9.91,14.46 ], [36.95,36.96]] , ["d", [[0.5,1050]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_n_sc_ts.nc" outfile="%Btra_n_sc.nc" variable_out="transpny" lon_lat_box='[  [[9.91,14.46 ], [36.95,36.96]] , ["d", [[0.5,1050]] ] ]' inkey="_sec_v_all" />
+
+<!-- Otranto -->
+
+	<reduce outkey="tra_t_ot_ts.nc" outfile="%Btra_t_ot.nc" variable_out="transpty" lon_lat_box='[  [[18.04,19.7 ], [40.25,40.26]] , ["d", [[0.5,1050]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_p_ot_ts.nc" outfile="%Btra_p_ot.nc" variable_out="transppy" lon_lat_box='[  [[18.04,19.7 ], [40.25,40.26]] , ["d", [[0.5,1050]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_n_ot_ts.nc" outfile="%Btra_n_ot.nc" variable_out="transpny" lon_lat_box='[  [[18.04,19.7 ], [40.25,40.26]] , ["d", [[0.5,1050]] ] ]' inkey="_sec_v_all" />
+
+<!-- Corsica -->
+
+	<reduce outkey="tra_t_co_ts.nc" outfile="%Btra_t_co.nc" variable_out="transpty" lon_lat_box='[  [[9.12,11.58 ], [42.5,42.51]] , ["d", [[0.5,900]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_p_co_ts.nc" outfile="%Btra_p_co.nc" variable_out="transppy" lon_lat_box='[  [[9.12,11.58 ], [42.5,42.51]] , ["d", [[0.5,900]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_n_co_ts.nc" outfile="%Btra_n_co.nc" variable_out="transpny" lon_lat_box='[  [[9.12,11.58 ], [42.5,42.51]] , ["d", [[0.5,900]] ] ]' inkey="_sec_v_all" />
+
+<!-- Messina -->
+
+	<reduce outkey="tra_t_me_ts.nc" outfile="%Btra_t_me.nc" variable_out="transpty" lon_lat_box='[  [[15.54,15.75 ], [38.2,38.21]] , ["d", [[0.5,150]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_p_me_ts.nc" outfile="%Btra_p_me.nc" variable_out="transppy" lon_lat_box='[  [[15.54,15.75 ], [38.2,38.21]] , ["d", [[0.5,150]] ] ]' inkey="_sec_v_all" />
+
+	<reduce outkey="tra_n_me_ts.nc" outfile="%Btra_n_me.nc" variable_out="transpny" lon_lat_box='[  [[15.54,15.75 ], [38.2,38.21]] , ["d", [[0.5,150]] ] ]' inkey="_sec_v_all" />
+
+	<map outkey="tem_t_all_l" 
+		variable='votemper' inkey="tem_t" 
+		lon_lat_box='DOMAINOFINTEREST1' 
+		outfile='_T.nc' 
+		mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0/mesh_mask.nc","tmask","e1t","e2t","e3t_0","mbathy"]'>
+
+		<map outkey="T.nc_SST_ts.nc" outfile="T.nc_SST_ts.nc" variable='votemper' 
+			lon_lat_box='[ ["d", [[0.5,1.5]] ] ]'
+			depth_layers='["top","btm"]'
+			operation="OrizontalAverage"
+			inkey="%KEY_VOTEMPER%" />
+
+		<map outkey="T.nc_0_150_ts.nc" outfile="T.nc_0_150_ts.nc" variable='votemper'
+			lon_lat_box='[ ["d", [[0.5,150]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOTEMPER%" />
+
+		<map outkey="T.nc_150_600_ts.nc" outfile="T.nc_150_600_ts.nc" variable='votemper' 
+			lon_lat_box='[ ["d", [[160,600]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOTEMPER%" />
+
+		<map outkey="T.nc_600_btm_ts.nc" outfile="T.nc_600_btm_ts.nc" variable='votemper' 
+			lon_lat_box='[ ["d", [[620,5800]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOTEMPER%" />
+
+		<map outkey="T.nc_basin_ts.nc" outfile="T.nc_basin_ts.nc" variable='votemper' 
+			lon_lat_box='[ ["d", [[0.5,5800]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage' 
+			inkey="%KEY_VOTEMPER%" />
+	</map>
+
+	
+
+
+
+	<map outkey="tem_s_all_l" 
+		variable='vosaline' inkey="tem_t" 
+		lon_lat_box='DOMAINOFINTEREST1'
+		outfile='_S.nc' 
+		mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0/mesh_mask.nc","tmask","e1t","e2t","e3t_0","mbathy"]'>
+
+		<map outkey="S.nc_SSS_ts.nc" outfile="S.nc_SSS_ts.nc" variable='vosaline'
+			lon_lat_box='[ ["d", [[0.5,1.5]] ] ]'
+			depth_layers='["top","btm"]' 
+			operation="OrizontalAverage"
+			inkey="%KEY_VOSALINE%" />
+
+		<map outkey="S.nc_0_150_ts.nc" outfile="S.nc_0_150_ts.nc" variable='vosaline' 
+			lon_lat_box='[ ["d", [[0.5,150]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOSALINE%" />
+
+		<map outkey="S.nc_150_600_ts.nc" outfile="S.nc_150_600_ts.nc" variable='vosaline' 
+			lon_lat_box='[ ["d", [[160,600]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOSALINE%" />
+
+		<map outkey="S.nc_600_btm_ts.nc" outfile="S.nc_600_btm_ts.nc" variable='vosaline' 
+			lon_lat_box='[ ["d", [[620,5800]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOSALINE%" />
+
+		<map outkey="S.nc_basin_ts.nc" outfile="S.nc_basin_ts.nc" variable='vosaline' 
+			lon_lat_box='[ ["d", [[0.5,5800]] ] ]'
+			depth_layers='["top","btm"]'
+			operation='OrizontalAverage'
+			inkey="%KEY_VOSALINE%" />
+	</map>
+
+
+	<map outkey='sossheig_ts.nc' outfile='sossheig_ts.nc' variable='sossheig' inkey="tem_t" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='somxl010_ts.nc' outfile='somxl010_ts.nc' variable='somxl010' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='sohefldo_ts.nc' outfile='sohefldo_ts.nc' variable='sohefldo' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='sowaflup_ts.nc' outfile='sowaflup_ts.nc' variable='sowaflup' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='soevapor_ts.nc' outfile='soevapor_ts.nc' variable='soevapor' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='soprecip_ts.nc' outfile='soprecip_ts.nc' variable='soprecip' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='sorunoff_ts.nc' outfile='sorunoff_ts.nc' variable='sorunoff' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='soshfldo_ts.nc' outfile='soshfldo_ts.nc' variable='soshfldo' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='solofldo_ts.nc' outfile='solofldo_ts.nc' variable='solofldo' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='sosefldo_ts.nc' outfile='sosefldo_ts.nc' variable='sosefldo' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+	<map outkey='solafldo_ts.nc' outfile='solafldo_ts.nc' variable='solafldo' inkey="%KEY_2D%" lon_lat_box='DOMAINOFINTEREST1' operation='OrizontalAverage' mesh='["/work/ag15419/PHYSW24_DATA/TIDES/DATA0//mesh_mask.nc","tmask","e1t","e2t"]'/>
+  
+
+	<mapreduce>
+
+		<map outkey="velmodw_ts.nc" outfile="velmodw_ts.nc" variable="velmodw" operation="OrizontalAverage" inkey="velw" />
+		<reduce outkey="ke_l" variable_out="vokenerg" outfile="%BKE_layers.nc" inkey="_cur_t" />
+		<reduce outkey="ve_l" variable_out="velmod" outfile="%BVM_layers.nc" inkey="_cur_t" />
+
+		<mapreduce>
+         
+			<map outkey="V.nc_SSV_ts.nc"     outfile="V.nc_SSV_ts.nc"     variable="velmod" lon_lat_box='[ ["d", [[0.5,1.5]] ] ]'  depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ve_l" />
+			<map outkey="V.nc_0_150_ts.nc"   outfile="V.nc_0_150_ts.nc"   variable="velmod" lon_lat_box='[ ["d", [[0.5,150]] ] ]'  depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ve_l" />
+			<map outkey="V.nc_150_600_ts.nc" outfile="V.nc_150_600_ts.nc" variable="velmod" lon_lat_box='[ ["d", [[160,600]] ] ]'  depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ve_l" />
+			<map outkey="V.nc_600_btm_ts.nc" outfile="V.nc_600_btm_ts.nc" variable="velmod" lon_lat_box='[ ["d", [[620,5800]] ] ]' depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ve_l" />
+			<map outkey="V.nc_basin_ts.nc"   outfile="V.nc_basin_ts.nc"   variable="velmod" lon_lat_box='[ ["d", [[0.5,5800]] ] ]' depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ve_l" />
+			
+			<map outkey="K.nc_SSK_ts.nc"     outfile="K.nc_SSK_ts.nc"     variable="vokenerg" lon_lat_box='[ ["d", [[0.5,1.5]] ] ]'  depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ke_l" />
+			<map outkey="K.nc_0_150_ts.nc"   outfile="K.nc_0_150_ts.nc"   variable="vokenerg" lon_lat_box='[ ["d", [[0.5,150]] ] ]'  depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ke_l" />
+			<map outkey="K.nc_150_600_ts.nc" outfile="K.nc_150_600_ts.nc" variable="vokenerg" lon_lat_box='[ ["d", [[160,600]] ] ]'  depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ke_l" />
+			<map outkey="K.nc_600_btm_ts.nc" outfile="K.nc_600_btm_ts.nc" variable="vokenerg" lon_lat_box='[ ["d", [[620,5800]] ] ]' depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ke_l" />
+			<map outkey="K.nc_basin_ts.nc"   outfile="K.nc_basin_ts.nc"   variable="vokenerg" lon_lat_box='[ ["d", [[0.5,5800]] ] ]' depth_layers='["top","btm"]' operation="OrizontalAverage" inkey="ke_l" />
+
+			<mapreduce>
+
+			<!-- Gibraltar -->
+				<reduce outfile="tra_t_gb_ts.nc" variable="transptx" operation="TimeConcatenation" inkey="tra_t_gb_ts.nc" />
+				<reduce outfile="tra_p_gb_ts.nc" variable="transppx" operation="TimeConcatenation" inkey="tra_p_gb_ts.nc" />
+				<reduce outfile="tra_n_gb_ts.nc" variable="transpnx" operation="TimeConcatenation" inkey="tra_n_gb_ts.nc" />
+
+			<!-- Sicily -->
+				<reduce outfile="tra_t_sc_ts.nc" variable="transpty" operation="TimeConcatenation" inkey="tra_t_sc_ts.nc" />
+				<reduce outfile="tra_p_sc_ts.nc" variable="transppy" operation="TimeConcatenation" inkey="tra_p_sc_ts.nc" />
+				<reduce outfile="tra_n_sc_ts.nc" variable="transpny" operation="TimeConcatenation" inkey="tra_n_sc_ts.nc" />
+
+			<!-- Otranto -->
+				<reduce outfile="tra_t_ot_ts.nc" variable="transpty" operation="TimeConcatenation" inkey="tra_t_ot_ts.nc" />
+				<reduce outfile="tra_p_ot_ts.nc" variable="transppy" operation="TimeConcatenation" inkey="tra_p_ot_ts.nc" />
+				<reduce outfile="tra_n_ot_ts.nc" variable="transpny" operation="TimeConcatenation" inkey="tra_n_ot_ts.nc" />
+
+			<!-- Corsica -->
+				<reduce outfile="tra_t_co_ts.nc" variable="transpty" operation="TimeConcatenation" inkey="tra_t_co_ts.nc" />
+				<reduce outfile="tra_p_co_ts.nc" variable="transppy" operation="TimeConcatenation" inkey="tra_p_co_ts.nc" />
+				<reduce outfile="tra_n_co_ts.nc" variable="transpny" operation="TimeConcatenation" inkey="tra_n_co_ts.nc" />
+
+			<!-- Messina -->
+				<reduce outfile="tra_t_me_ts.nc" variable="transpty" operation="TimeConcatenation" inkey="tra_t_me_ts.nc" />
+				<reduce outfile="tra_p_me_ts.nc" variable="transppy" operation="TimeConcatenation" inkey="tra_p_me_ts.nc" />
+				<reduce outfile="tra_n_me_ts.nc" variable="transpny" operation="TimeConcatenation" inkey="tra_n_me_ts.nc" />
+
+				<reduce outfile="T.nc_SST_ts.nc"     variable="votemper" inkey="T.nc_SST_ts.nc"     operation="TimeConcatenation"/>
+				<reduce outfile="T.nc_0_150_ts.nc"   variable="votemper" inkey="T.nc_0_150_ts.nc"   operation="TimeConcatenation"/>
+				<reduce outfile="T.nc_150_600_ts.nc" variable="votemper" inkey="T.nc_150_600_ts.nc" operation="TimeConcatenation"/>
+				<reduce outfile="T.nc_600_btm_ts.nc" variable="votemper" inkey="T.nc_600_btm_ts.nc" operation="TimeConcatenation"/>
+				<reduce outfile="T.nc_basin_ts.nc"   variable="votemper" inkey="T.nc_basin_ts.nc"   operation="TimeConcatenation"/>
+
+				<reduce outfile="S.nc_SSS_ts.nc"     variable="vosaline" inkey="S.nc_SSS_ts.nc"     operation="TimeConcatenation"/>
+				<reduce outfile="S.nc_0_150_ts.nc"   variable="vosaline" inkey="S.nc_0_150_ts.nc"   operation="TimeConcatenation"/>
+				<reduce outfile="S.nc_150_600_ts.nc" variable="vosaline" inkey="S.nc_150_600_ts.nc" operation="TimeConcatenation"/>
+				<reduce outfile="S.nc_600_btm_ts.nc" variable="vosaline" inkey="S.nc_600_btm_ts.nc" operation="TimeConcatenation"/>
+				<reduce outfile="S.nc_basin_ts.nc"   variable="vosaline" inkey="S.nc_basin_ts.nc"   operation="TimeConcatenation"/>
+
+				<reduce outfile='sossheig_ts.nc' variable='sossheig' inkey="sossheig_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='somxl010_ts.nc' variable='somxl010' inkey="somxl010_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='sohefldo_ts.nc' variable='sohefldo' inkey="sohefldo_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='sowaflup_ts.nc' variable='sowaflup' inkey="sowaflup_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='soevapor_ts.nc' variable='soevapor' inkey="soevapor_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='soprecip_ts.nc' variable='soprecip' inkey="soprecip_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='sorunoff_ts.nc' variable='sorunoff' inkey="sorunoff_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='soshfldo_ts.nc' variable='soshfldo' inkey="soshfldo_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='solofldo_ts.nc' variable='solofldo' inkey="solofldo_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='sosefldo_ts.nc' variable='sosefldo' inkey="sosefldo_ts.nc" operation='TimeConcatenation' />
+				<reduce outfile='solafldo_ts.nc' variable='solafldo' inkey="solafldo_ts.nc" operation='TimeConcatenation' />
+
+				<reduce outfile="velmodw_ts.nc" variable="velmodw" operation="TimeConcatenation" inkey="velmodw_ts.nc" />
+
+				<reduce outfile="V.nc_SSV_ts.nc"     variable="velmod" operation="TimeConcatenation" inkey="V.nc_SSV_ts.nc" />
+				<reduce outfile="V.nc_0_150_ts.nc"   variable="velmod" operation="TimeConcatenation" inkey="V.nc_0_150_ts.nc" />
+				<reduce outfile="V.nc_150_600_ts.nc" variable="velmod" operation="TimeConcatenation" inkey="V.nc_150_600_ts.nc" />
+				<reduce outfile="V.nc_600_btm_ts.nc" variable="velmod" operation="TimeConcatenation" inkey="V.nc_600_btm_ts.nc" />
+				<reduce outfile="V.nc_basin_ts.nc"   variable="velmod" operation="TimeConcatenation" inkey="V.nc_basin_ts.nc" />
+
+				<reduce outfile="K.nc_SSK_ts.nc"    variable="vokenerg" operation="TimeConcatenation" inkey="K.nc_SSK_ts.nc" />
+				<reduce outfile="K.nc_0_150_ts.nc"   variable="vokenerg" operation="TimeConcatenation" inkey="K.nc_0_150_ts.nc" />
+				<reduce outfile="K.nc_150_600_ts.nc" variable="vokenerg" operation="TimeConcatenation" inkey="K.nc_150_600_ts.nc" />
+				<reduce outfile="K.nc_600_btm_ts.nc" variable="vokenerg" operation="TimeConcatenation" inkey="K.nc_600_btm_ts.nc" />
+				<reduce outfile="K.nc_basin_ts.nc"   variable="vokenerg" operation="TimeConcatenation" inkey="K.nc_basin_ts.nc" />
+
+			</mapreduce>
+
+		</mapreduce>
+
+   </mapreduce>
+
+</mapreduce>

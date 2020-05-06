@@ -1,0 +1,25 @@
+#
+# Post_processing scripts written by AC Goglio
+#
+# ======
+# exp_pp = script for computation of wall-times and disk-occupation of every EAS5 experiment found in a given dir
+# (work in progress..)
+#
+# manu_py = just a few py scripts provided by Emanuela 
+#  
+# tide_anaP = script for extraction of time series from model runs and from obs (ispra and emodnet dbs) and for comparison of TS and TS of mydiag outputs
+#
+# harm_ana = scripts for extraction of time series from model runs and from obs (ispra and emodnet dbs) and for harmonic analysis and output visualization (amplitude and Phases comparison, linear regressions and indexes computation)
+#
+#
+# ts_stat_spdist = scripts for comparisons between time series (and extraction scripts). It compares spectra, empirical distribution funcrions and computes the bias and the rmse
+#
+# maps = scripts for plotting maps and diff between datasets
+#
+# sect = scripts for sections extraction and plotting and diff computing between datasets
+#
+# doodson_filter = scripts for applying the Doodson filter to detide model databases or obs withou gaps ( hourly is the current version! )
+#
+# running_mean = scripts for applying the 25h-Running-mean filter to detide model databases or obs withou gaps 
+#
+# mydiag_dom_freq = pack to run mydiag diagnostic package on different domains and frequencies of model outputs

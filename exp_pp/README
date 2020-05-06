@@ -1,0 +1,38 @@
+#
+###############################################
+#  NEMO_TDcounter.sh (ready to use!)
+###############################################
+# This script extracts from nemo-med-simulations 
+# 1) the global wall time (which includes pre and post processing phases)
+# from log.txt files
+# 2) the NEMO stand-alone wall-time from bhist_P? files computing a mean
+# on daily values (since daily run are performed)
+# 3) Output file.nc dimensions
+#
+#
+# Written by AC Goglio on 12/06/2019
+##############################################
+
+
+
+
+######################################
+# Desc2CSV.sh (work in progress...)
+#########################################################################
+## This script reads (and writes in a csv file) from exp files
+## found in /work/%user%/exp dirs the following infos  
+## 1) exp name
+## 2) start date, duration
+## 3) active keys 
+## 4) namelist and iofile name and path  
+## 5) computational resources infos
+##
+## Then it extracts from nemo-med-simulations 
+## 1) the global wall time (which includes pre and post processing phases)
+## from log.txt files
+## 2) the NEMO stand-alone wall-time from bhist_P? files computing a mean
+## on daily values (since daily run are performed)
+## 3) Output file.nc dimensions
+##
+## Written by AC Goglio on 14/06/2019
+########################################################################

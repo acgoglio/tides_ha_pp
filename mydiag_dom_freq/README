@@ -1,0 +1,33 @@
+#
+# mydiag_dom_freq_selection program
+#
+# by
+# AC Goglio (annachiara.goglio@cmcc.it)
+# CMCC Bologna
+# 08/04/2020
+#
+# Description: Script for mydiag diagnostic pack setting
+#              
+#
+# Input:  - mydiag_dom_freq.ini ini file (MUST be stored in the same directory of mydiag_dom_freq_selection.sh script) 
+#         - templates contained in the "templates/" directory (MUST be stored in the same directory of mydiag_dom_freq_selection.sh script) 
+#         - the exp src directory on which you want to apply the changes (linked in the ini file)
+#
+# Output: mydiag scripts with the specific settings for the choosen case, namely
+#         - mydiag.sh, gen_xml.sh, exp_mrsp.sh, exp_filter_reduce.sh, exp_filter_map.sh in %exp%/pack/med_prod/bin directory
+#         - diag_base_eas3.TEMPLATE.xml in %exp%/pack/med_prod directory
+#         - a copy of the previous versions of the script (named *_old ) in the same directories
+# 
+# Initialization file (required): mydiag_dom_freq.ini 
+#
+# WARNING: This script is going to modify the src of mydiag package..
+#
+# How to run the script:
+#
+#  1) Set variable values in the initialization file (mydiag_dom_freq.ini) 
+#     Reading CAREFULLY the WARNINGS in the file before running the script...
+#
+#  2) Run the shell script:  sh mydiag_dom_freq_selection.sh
+#
+# Good luck
+#        

@@ -1,0 +1,38 @@
+#!/bin/bash
+
+ExpDir=$1
+XmlFile=$2
+
+if [ -z $XmlFile ]; then
+   XmlFile=$MYENVDEV_PACK/med_prod/diag_base.xml
+fi
+
+TemplateFile=`ls -1 $ExpDir/output/??????/%T_TEMPLATEFILE% | tail -1`
+TemplateFile4stat=`ls -1 $ExpDir/output/??????/%T_TEMPLATEFILE4MASK% | tail -1`
+if [ ! -f $MYENVDEV_HOME/sossheig.nc ]; then
+   echo "RUNNING sp.py.."
+   sp.py --ifile=$TemplateFile4stat --ifield=sossheig --mesh='["'$MYE_MESHMASK'","tmask","e1t","e2t"]' --ilonlat='%DOMAIN%' --ofile=$MYENVDEV_HOME/sossheig.nc
+   echo "..Done!"
+   fi
+if [ ! -f $MYENVDEV_HOME/votemper.nc ]; then
+   sp.py --ifile=$TemplateFile4stat --ifield=votemper --mesh='["'$MYE_MESHMASK'","tmask","e1t","e2t","e3t_0"]' --ilonlat='%DOMAIN%' --ofile=$MYENVDEV_HOME/votemper.nc
+   fi
+export static3=$MYENVDEV_HOME/votemper.nc
+export static1=$MYENVDEV_HOME/sossheig.nc
+
+if [ ! -f ${MYENVDEV_PACK}/med_prod/diag_base.xml ]; then 
+   gen_xml.sh
+fi
+
+FilterFile=`which exp_filter_map.sh`
+#which exp_mrsp.sh
+exp_mrsp.sh $ExpDir $FilterFile $XmlFile
+
+
+if [ -d $ExpDir/exp_mrsp.sh/`basename $XmlFile` ]; then
+   FilterFile=`which exp_filter_reduce.sh`
+   cd $ExpDir/exp_mrsp.sh/`basename $XmlFile`
+   %REDUCE_COMMAND_LINE%
+fi
+
+

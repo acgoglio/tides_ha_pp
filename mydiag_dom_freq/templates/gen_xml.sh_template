@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo Writing diag_base.xml
+cd ${MYENVDEV_PACK}/med_prod
+cp diag_base_eas3.TEMPLATE.xml diag_base.xml
+replace_pattern.py diag_base.xml DIRNEMODATA0 $MYE_NEMO_1811_DATA0
+replace_pattern.py diag_base.xml DOMAINOFINTEREST1 "%DOMAIN%"

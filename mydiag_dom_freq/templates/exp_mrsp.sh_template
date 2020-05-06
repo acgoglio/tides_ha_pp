@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ExpDir=$1
+FilterFile=$2
+XmlFile=$3
+
+if [ -z $XmlFile ] || [ -z $FilterFile ] || [ -z $ExpDir ]; then
+   echo missing something....
+   exit 1
+fi
+
+for YYYYMM in `ls -d $ExpDir/output/??????`; do
+   #DD=$ExpDir/`basename $YYYYMM`/`basename $XmlFile`/`basename $YYYYMM`
+   DD=$ExpDir/`basename $0`/`basename $XmlFile`/`basename $YYYYMM`
+   if [ ! -d $DD ]; then
+      mkdir -p $DD
+      cd $DD || exit 1
+      echo $YYYYMM $DD
+      %REDUCE_COMMAND_LINE%
+      #$FilterFile $YYYYMM
+      cd -
+   fi
+done

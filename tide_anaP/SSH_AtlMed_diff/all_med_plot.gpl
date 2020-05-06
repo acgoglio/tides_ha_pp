@@ -1,0 +1,28 @@
+#
+#set term jpeg giant size 1300,800 font "Times,45"
+set term jpeg size 1000,500 giant
+set output "med1h_smallplot_20160101_20181231_ts.jpg" 
+stats 'plotinfile_1_sossheig_1h.txt' using 3 name 'MOD_T' nooutput
+stats 'plotinfile_2_sossheig_1h.txt' using 3 name 'MOD_NOT' nooutput
+#stats 'plotinfile_diff_sossheig.txt' using 3 name 'STATSD' nooutput
+stats 'wavg_med_notides.txt' using 9 name 'SAT_NOT' nooutput
+stats 'wavg_med_tides.txt' using 9 name 'SAT_T' nooutput
+#set multiplot layout 2,1 title "Time Series ( VAR: Sea Surface Height  DT: 20160101 - 20181231 )" 
+set title "Time Series --- SSH_MedSea ---  20160101 - 20181231"
+set key opaque
+set ylabel "SSH_MedSea [m]"
+set xlabel "Date" 
+set xdata time 
+set timefmt "%Y-%m-%d %H:%M:%S" 
+set xrange ["2016-01-01 00:00:00":"2018-12-31 23:30:00"] 
+set yrange ["-1.5":"1.5"]
+set format x "%d/%m/%Y" 
+set grid
+set ytics 0.2
+set grid  
+set key right bottom
+set xzeroaxis lt 2 lc rgb "black" lw 2
+plot 'plotinfile_1_sossheig_1h.txt' using 1:3 with line lw 2 lc rgb 'blue' title gprintf("MOD+Tides (AVG=%g0 [cm])",MOD_T_mean*100), 'wavg_med_tides.txt' using 3:9 with line lw 3 lc rgb '#edb120' title gprintf("SAT+Tides (AVG=%g [cm])",SAT_T_mean*100), 'plotinfile_2_sossheig_1h.txt' using 1:3 with line lw 3 lc rgb '#77ac30' title gprintf("MOD (AVG=%g0 [cm])",MOD_NOT_mean*100), 'wavg_med_notides.txt' using 3:9 with line lw 3 lc rgb 'red' title gprintf("SAT (AVG=%g [cm])",SAT_NOT_mean*100)
+#plot 'wavg_med_tides.txt' using 3:9 with line lw 3 lc rgb '#edb120' title gprintf("SAT+Tides (AVG=%g [cm])",SAT_T_mean*100), 'wavg_med_notides.txt' using 3:9 with line lw 3 lc rgb 'red' title gprintf("SAT (AVG=%g [cm])",SAT_NOT_mean*100), 'plotinfile_1_sossheig_1h.txt' using 1:3 with line lw 3 lc rgb 'blue' title gprintf("MOD+Tides (AVG=%g0 [cm])",MOD_T_mean*100), 'plotinfile_2_sossheig_1h.txt' using 1:3 with line lw 3 lc rgb '#77ac30' title gprintf("MOD (AVG=%g0 [cm])",MOD_NOT_mean*100) 
+#
+#plot 'wavg_all_tides_ok.txt' using 3:($9-$20) with line lw 3 lc rgb '#edb120' title gprintf("SAT+Tides (AVG=%g [cm])",SAT_T_mean*100), 'wavg_all_notides_ok.txt' using 3:($9-$20) with line lw 3 lc rgb 'red' title gprintf("SAT (AVG=%g [cm])",SAT_NOT_mean*100), 'mod_all_tides_ok.txt' using 1:($3-$7) with line lw 3 lc rgb 'blue' title gprintf("MOD+Tides (AVG=%g0 [cm])",MOD_T_mean*100), 'mod_all_notides_ok.txt' using 1:($3-$7) with line lw 3 lc rgb '#77ac30' title gprintf("MOD (AVG=%g [cm])",MOD_NOT_mean*100) #, MOD_NOT_mean lw 1 dt 2 lc rgb "#77ac30" notitle, MOD_T_mean lw 1 dt 2 lc rgb "blue" notitle, SAT_NOT_mean lw 1 dt 2 lc rgb "red" notitle, SAT_T_mean lw 1 dt 2 lc rgb "#edb120" notitle 

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+wdir=$1
+
+make_list() {
+   wdir=$1
+   patt=$2
+   for file in `ls $wdir/??????/$patt`; do
+      echo $patt,$file
+   done
+   }
+
+%REDUCED_LN_LIST%
+
