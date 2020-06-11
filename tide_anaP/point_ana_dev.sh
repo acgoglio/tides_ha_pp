@@ -210,7 +210,7 @@ fi
 #        cat << EOF > ${GNUPLOT_TMP}  
 
         echo "#" > ${GNUPLOT_TMP}
-        echo "set term jpeg size 1000,600 font giant " >> ${GNUPLOT_TMP}
+        echo "set term jpeg size 1000,600 giant " >> ${GNUPLOT_TMP}
         echo "set output \"$DMMM_PLOT\" " >> ${GNUPLOT_TMP}
         echo "set title \"Max, mean and min on MED-MFC Domain ; VAR: $PVAR  ; DT: $ANA_STARTDATE - $ANA_ENDDATE\" " >> ${GNUPLOT_TMP}
         echo "set xlabel \"Time\" " >> ${GNUPLOT_TMP}
@@ -599,7 +599,7 @@ fi
           GNUPLOT_TS_TMP="ts_tmp.gpl"    
 
           echo "#" > ${GNUPLOT_TS_TMP}
-          echo "set term jpeg size 1500,600 font giant" >> ${GNUPLOT_TS_TMP}
+          echo "set term jpeg size 1500,600 giant" >> ${GNUPLOT_TS_TMP}
           echo "set output \"$TS_PLOT\" " >> ${GNUPLOT_TS_TMP}
           if [[ $OBS_FLAG == 2 ]]; then
              echo "stats '$TSPLOT_INFILE_OBS' using 9 nooutput" >> ${GNUPLOT_TS_TMP}
@@ -686,7 +686,7 @@ fi
           GNUPLOT_TS_TMP="ts_tmp.gpl"
 
           echo "#" > ${GNUPLOT_TS_TMP}
-          echo "set term jpeg size 1500,900 font giant" >> ${GNUPLOT_TS_TMP}
+          echo "set term jpeg size 1500,900 giant" >> ${GNUPLOT_TS_TMP}
           echo "set output \"$TS_PLOT\" " >> ${GNUPLOT_TS_TMP}
           if [[ $OBS_FLAG == 2 ]]; then
              echo "stats '$TSPLOT_INFILE_OBS' using 3 nooutput" >> ${GNUPLOT_TS_TMP}
@@ -812,7 +812,7 @@ fi
 
           # Plot gpl file
           echo "#" > ${GNUPLOT_MYDIAG_TMP}
-          echo "set term jpeg giant size 1200,400 font \"Times,45\"" >> ${GNUPLOT_MYDIAG_TMP} #1300,800
+          echo "set term jpeg size 1200,600 giant" >> ${GNUPLOT_MYDIAG_TMP} #1300,800
           echo "set output \"$MYDIAG_PLOT\" " >> ${GNUPLOT_MYDIAG_TMP}
 
           echo "stats '$MYDIAG_PLOTINFILE_1' using 3 name 'STATS1' nooutput" >> ${GNUPLOT_MYDIAG_TMP}
@@ -835,7 +835,7 @@ fi
           # All:
           #echo "plot '$MYDIAG_PLOTINFILE_1' using 1:3 with line lw 3 lt rgb \"${MYDIAG_COLOR1}\" title gprintf(\"${MYDIAG_INTAG_1} (AVG = %g ${MYDIAG_PLOTUDM} ) \", STATS1_mean), '$MYDIAG_PLOTINFILE_2' using 1:3 with line lw 3 lt rgb \"${MYDIAG_COLOR2}\" title gprintf(\"${MYDIAG_INTAG_2} (AVG = %g ${MYDIAG_PLOTUDM} )\", STATS2_mean) " >> ${GNUPLOT_MYDIAG_TMP}
           # All no avg:
-          echo "set ylabel \"Salinity [PSU]\" " >> ${GNUPLOT_MYDIAG_TMP}
+          echo "set ylabel \"${MYDIAG_LONG_NAMES[${IDX_MYDIAG}]} ${MYDIAG_PLOTUDM}\" " >> ${GNUPLOT_MYDIAG_TMP}
           echo "plot '$MYDIAG_PLOTINFILE_1' using 1:3 with line lw 3 lt rgb \"${MYDIAG_COLOR1}\" title \"${MYDIAG_INTAG_1}\", '$MYDIAG_PLOTINFILE_2' using 1:3 with line lw 3 lt rgb \"${MYDIAG_COLOR2}\" title \"${MYDIAG_INTAG_2}" >> ${GNUPLOT_MYDIAG_TMP} 
           # SSH:
           #echo "plot STATS1_mean lw 2 lc rgb \"cyan\" title gprintf( \"AVG ${MYDIAG_INTAG_1}=%g ${MYDIAG_PLOTUDM}\", STATS1_mean ), STATS2_mean lw 2 lc rgb \"gray\" title gprintf( \"AVG ${MYDIAG_INTAG_2}=%g ${MYDIAG_PLOTUDM}\", STATS2_mean ),'$MYDIAG_PLOTINFILE_1' using 1:3 with line lw 2 lt rgb \"blue\" title gprintf(\"${MYDIAG_INTAG_1}\", STATS1_mean), '$MYDIAG_PLOTINFILE_2' using 1:3 with line lw 2 lt rgb \"black\" title gprintf(\"${MYDIAG_INTAG_2}\", STATS2_mean)" >> ${GNUPLOT_MYDIAG_TMP}
@@ -845,7 +845,10 @@ fi
           # All:
           #echo "plot '$MYDIAG_PLOTINFILE_DIFF' using 1:3 with line lw 2 lt rgb \"dark-green\" title \"Diff: ${MYDIAG_INTAG_1} - ${MYDIAG_INTAG_2}\", STATSD_mean lw 2 lc rgb \"gray\" title gprintf( \"${MYDIAG_INTAG_1}-${MYDIAG_INTAG_2} mean = %g ${MYDIAG_PLOTUDM} \", STATSD_mean ), STATSD_lo_quartile lw 2 lc rgb \"green\" title \"${MYDIAG_INTAG_1}-${MYDIAG_INTAG_2} 1st quartile\",STATSD_up_quartile lw 2 lc rgb \"green\" title \"${MYDIAG_INTAG_1}-${MYDIAG_INTAG_2} 3rd quartile\"  " >> ${GNUPLOT_MYDIAG_TMP}
         # SSH
-        echo "plot '$MYDIAG_PLOTINFILE_DIFF' using 1:3 with line lw 2 lt rgb \"dark-green\" title \"${MYDIAG_INTAG_1} - ${MYDIAG_INTAG_2}\", STATSD_mean lw 2 lc rgb \"green\" title gprintf( \"AVG Diff = %g ${MYDIAG_PLOTUDM} \", STATSD_mean )" >> ${GNUPLOT_MYDIAG_TMP} 
+        echo "set ylabel \" Differences ${MYDIAG_PLOTUDM}\"" >> ${GNUPLOT_MYDIAG_TMP}
+        echo "set yrange [\"-0.008\":\"0.008\"]" >> ${GNUPLOT_MYDIAG_TMP}
+        #echo "plot '$MYDIAG_PLOTINFILE_DIFF' using 1:3 with line lw 2 lt rgb \"${MYDIAG_DIFFCOLOR1}\" title \"${MYDIAG_INTAG_1} - ${MYDIAG_INTAG_2}\", STATSD_mean lw 2 lc rgb \"${MYDIAG_AVG_DIFFCOLOR1}\" title gprintf( \"AVG Diff = %g ${MYDIAG_PLOTUDM} \", STATSD_mean )" >> ${GNUPLOT_MYDIAG_TMP} 
+        echo "plot '$MYDIAG_PLOTINFILE_DIFF' using 1:3 with line lw 2 lt rgb \"${MYDIAG_DIFFCOLOR1}\" title \"${MYDIAG_INTAG_1} - ${MYDIAG_INTAG_2}\", STATSD_max lw 0 lc rgb \"${MYDIAG_AVG_DIFFCOLOR1}\" title gprintf( \"MAX Diff = %g [cm/s] \", STATSD_max*100 ), STATSD_mean lw 2 lc rgb \"${MYDIAG_AVG_DIFFCOLOR1}\" title gprintf( \"AVG Diff = %g [cm/s] \", STATSD_mean*100 ), STATSD_min lw 0 lc rgb \"${MYDIAG_AVG_DIFFCOLOR1}\" title gprintf( \"MIN Diff = %g [cm/s] \", STATSD_min*100 ) " >> ${GNUPLOT_MYDIAG_TMP}
 
         ## Write statistics
         #gnuplot < $GNUPLOT_MYDIAG_TMPTXT || echo "Prob with stat..why?!"
@@ -915,9 +918,10 @@ fi
           cdo outputtab,date,time,value,name $MYDIAG_DIFFOUT_M | grep "$MYDIAG_FIELD" | grep -v "1e+20" > $MYDIAG_PLOTINFILE_DIFF_M
                     
 
-          rm seldate1.nc
-          rm seldate2.nc
-          rm seldate3.nc
+          #ls seldate?.nc
+          rm -v seldate1.nc
+          rm -v seldate2.nc
+          rm -v seldate3.nc
 
 
           # Plot TS and Diff
@@ -932,8 +936,8 @@ fi
 
           GNUPLOT_MYDIAG_TMP="mydiag_tmp.gpl_${MYDIAG_FILES[${IDX_MYDIAG}]}"
           echo "#" > ${GNUPLOT_MYDIAG_TMP}
-          #echo "set term jpeg size 1600,1000 font giant" >> ${GNUPLOT_MYDIAG_TMP}
-          echo "set term jpeg size 1000,600 font giant" >> ${GNUPLOT_MYDIAG_TMP}
+          #echo "set term jpeg size 1600,1000 giant" >> ${GNUPLOT_MYDIAG_TMP}
+          echo "set term jpeg size 1000,800 giant" >> ${GNUPLOT_MYDIAG_TMP}
           echo "set output \"$MYDIAG_PLOT\" " >> ${GNUPLOT_MYDIAG_TMP}
 
           echo "stats '$MYDIAG_PLOTINFILE_1' using 3 name 'STATS1' nooutput" >> ${GNUPLOT_MYDIAG_TMP}
@@ -950,16 +954,17 @@ fi
           echo "set xdata time " >> ${GNUPLOT_MYDIAG_TMP}
           echo "set timefmt \"%Y-%m-%d %H:%M:%S\" " >> ${GNUPLOT_MYDIAG_TMP}
           echo "set xrange [\"${PLOT_SDATE:0:4}-${PLOT_SDATE:4:2}-${PLOT_SDATE:6:2} 00:00:00\":\"${PLOT_EDATE:0:4}-${PLOT_EDATE:4:2}-${PLOT_EDATE:6:2} 23:30:00\"] " >> ${GNUPLOT_MYDIAG_TMP}
-          echo "set format x \"%d/%m/%Y\" " >> ${GNUPLOT_MYDIAG_TMP}
+          echo "set format x \"%m/%Y\" " >> ${GNUPLOT_MYDIAG_TMP} # %d/%m/%Y
           echo "set ylabel \"${MYDIAG_FIELD} ${MYDIAG_PLOTUDM}\" " >> ${GNUPLOT_MYDIAG_TMP}
           echo "set grid " >> ${GNUPLOT_MYDIAG_TMP}
           echo "set xzeroaxis lw 2" >> ${GNUPLOT_MYDIAG_TMP}
-          #echo "set key outside" >> ${GNUPLOT_MYDIAG_TMP}
+          echo "set key right bottom" >> ${GNUPLOT_MYDIAG_TMP} # set key outside
 
           echo "plot '$MYDIAG_PLOTINFILE_3' using 1:3 with line lw 2 lt rgb \"red\" title gprintf(\"${MYDIAG_INTAG_3} (AVG = %g ${MYDIAG_PLOTUDM} ) \", STATS3_mean), '$MYDIAG_PLOTINFILE_1' using 1:3 with line lw 2 lt rgb \"orange\" title gprintf(\"${MYDIAG_INTAG_1} (AVG = %g ${MYDIAG_PLOTUDM} ) \", STATS1_mean), '$MYDIAG_PLOTINFILE_2' using 1:3 with line lw 2 lt rgb \"blue\" title gprintf(\"${MYDIAG_INTAG_2} (AVG = %g ${MYDIAG_PLOTUDM} )\", STATS2_mean) " >> ${GNUPLOT_MYDIAG_TMP}
           # SSH:
           #echo "plot '$MYDIAG_PLOTINFILE_3' using 1:3 with line lw 2 lt rgb \"dark-green\" title gprintf(\"${MYDIAG_INTAG_3} (AVG = %g ${MYDIAG_PLOTUDM} ) \", STATS3_mean), '$MYDIAG_PLOTINFILE_1' using 1:3 with line lw 2 lt rgb \"red\" title gprintf(\"${MYDIAG_INTAG_1} (AVG = %g ${MYDIAG_PLOTUDM} ) \", STATS1_mean), '$MYDIAG_PLOTINFILE_2' using 1:3 with line lw 2 lt rgb \"black\" title gprintf(\"${MYDIAG_INTAG_2} (AVG = %g ${MYDIAG_PLOTUDM} )\", STATS2_mean) " >> ${GNUPLOT_MYDIAG_TMP}
           ##echo "plot '$MYDIAG_PLOTINFILE_DIFF_1' using 1:3 with line lw 2 lt rgb \"black\" title \"Diff: ${MYDIAG_INTAG_1} - ${MYDIAG_INTAG_2}\",'$MYDIAG_PLOTINFILE_DIFF_2' using 1:3 with line lw 2 lt rgb \"green\" title \"Diff: ${MYDIAG_INTAG_3} - ${MYDIAG_INTAG_2}\" " >> ${GNUPLOT_MYDIAG_TMP}
+          #echo "set yrange [\"-0.10\":\"0.10\"] " >> ${GNUPLOT_MYDIAG_TMP}
           echo "plot '$MYDIAG_PLOTINFILE_DIFF_1' using 1:3 with line lw 2 lt rgb \"orange\" title \"Diff: ${MYDIAG_INTAG_1} - ${MYDIAG_INTAG_2}\",'$MYDIAG_PLOTINFILE_DIFF_2' using 1:3 with line lw 2 lt rgb \"red\" title \"Diff: ${MYDIAG_INTAG_3} - ${MYDIAG_INTAG_2}\"" >> ${GNUPLOT_MYDIAG_TMP}
           echo "plot '$MYDIAG_PLOTINFILE_DIFF_M' using 1:3 with line lw 2 lt rgb \"dark-green\" title \"Diff: ${MYDIAG_INTAG_3} - ${MYDIAG_INTAG_1}\"" >> ${GNUPLOT_MYDIAG_TMP}
           # OLD with mean diff and quartiles:

@@ -7,7 +7,7 @@ make_list() {
    wdir=$1
    echo dummy,$static3
    echo dummy,$static1
-   for file in `ls $wdir/%T_TEMPLATEFILE% $wdir/%U_TEMPLATEFILE% $wdir/%V_TEMPLATEFILE%`; do
+   for file in `ls %WORK_DIR%/%EXP_NAME%/output/????/%T_TEMPLATEFILE% %WORK_DIR%/%EXP_NAME%/output/????/%U_TEMPLATEFILE% %WORK_DIR%/%EXP_NAME%/output/????/%V_TEMPLATEFILE%`; do
       #echo $file
       wdate=`basename $file | rev | cut -d _ -f 3 | rev`
       YYYY=`echo $wdate | cut -c1-4`

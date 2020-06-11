@@ -16,7 +16,7 @@ for YYYYMM in `ls -d $ExpDir/output/??????`; do
       mkdir -p $DD
       cd $DD || exit 1
       echo $YYYYMM $DD
-      %REDUCE_COMMAND_LINE%
+      %REDUCE_COMMAND_LINE_EXP%
       #$FilterFile $YYYYMM
       cd -
    fi

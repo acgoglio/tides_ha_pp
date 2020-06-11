@@ -1,0 +1,16 @@
+\begin{table}\footnotesize\hspace{-2.5cm}\begin{tabular}{||c||c|c|c||c|c|c||}     \hline     \hline     & \multicolumn{3}{c||}{Absolute bias $\|Mod-Obs\|$} & \multicolumn{3}{c||}{Relative bias $\|\frac{Mod-Obs}{Obs}\|\cdot 100$ } \\      & \multicolumn{3}{c||}{}& \multicolumn{3}{c||}{} \\     \hline     Tidal & Max & 95th percentile& Mean & Max & 95th percentile& Mean \\     components & & & & & & \\     \hline     \hlineM2  & 5.63  cm ({\color{red}{Algeciras}})& 3.0  cm & 1.2  cm & 40.05  \% ({\color{orange}{Messina}})& 22.71  \% & 10.6 \% \\ 
+\hline
+S2  & 2.08  cm ({\color{red}{Algeciras}})& 1.98  cm & 0.7  cm & 32.31  \% ({\color{orange}{Messina}})& 28.02  \% & 14.5 \% \\ 
+\hline
+K1  & 0.97  cm ({\color{red}{Algeciras}})& 0.52  cm & 0.3  cm & 80.22  \% ({\color{orange}{Messina}})& 40.54  \% & 11.6 \% \\ 
+\hline
+O1  & 0.66  cm ({\color{red}{Algeciras}})& 0.47  cm & 0.2  cm & 36.46  \% ({\color{orange}{Messina}})& 35.86  \% & 18.5 \% \\ 
+\hline
+N2  & 0.95  cm ({\color{red}{Algeciras}})& 0.56  cm & 0.2  cm & 31.91  \% ({\color{orange}{Messina}})& 27.55  \% & 10.5 \% \\ 
+\hline
+P1  & 0.6  cm ({\color{red}{Algeciras}})& 0.41  cm & 0.2  cm & 725.05  \% ({\color{orange}{Messina}})& 64.03  \% & 37.6 \% \\ 
+\hline
+Q1  & 0.76  cm ({\color{red}{Algeciras}})& 0.4  cm & 0.1  cm & 451.5  \% ({\color{orange}{Messina}})& 63.43  \% & 38.6 \% \\ 
+\hline
+K2  & 0.75  cm ({\color{red}{Algeciras}})& 0.54  cm & 0.2  cm & 93.69  \% ({\color{orange}{Messina}})& 41.17  \% & 20.5 \% \\ 
+\hline

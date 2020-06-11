@@ -19,15 +19,19 @@
 # Exp names ( must be a string with gaps between names )
 #LOF_EXP="simu_ctrl0 simt_nt_2015 simt_nt_16 simt_nt_15 simu_ctrl0_ldread simt_nt75_16" 
 LOF_EXP="simu_ctrl0_NewIntScheme simu_ctrl0_NewIntScheme1 simu_ctrl0_NewIntScheme2 simu_ctrl0_NewIntScheme3"
+LOF_EXP="simt_tra3 simt_tra simt_tra2 simt_ctrl0_NObdy"
+#LOF_EXP="simu_tides8_6"
 # Exp start date ( must be an array of values formatted as yyyymmdd, one element per exp ) 
 #START_DATE=( 20160101 20150101 20160101 20150101 20160101 20160101 )
 START_DATE=( 20181008 20150101 20170128 20180928 )
-
+START_DATE=( 20150101 20150101 20150101 20150101 )
+#START_DATE=( 20150101 )
 
 ######################################
 
 #Pack log files path and name
 LOF_PATH="/work/ag15419/exp/eas5"
+#LOF_PATH="/work/ec04916/exp/eas5/"
 LOF_NAME="log.txt"
 
 BHIST_PRENAME="bhist_P"
@@ -41,13 +45,13 @@ for EXP_ID in ${LOF_EXP}; do
     
     LOF=${LOF_PATH}/${EXP_ID}/${LOF_NAME} 
     ##echo "Log file: $LOF"
-    BHISTS="${LOF_PATH}/${EXP_ID}/output/${EXP_START_DATE:0:6}/$BHIST_PRENAME*"
+    BHISTS="${LOF_PATH}/${EXP_ID}/log/${EXP_START_DATE:0:6}/$BHIST_PRENAME*" # output (old system) or log (new)
     #echo "bhist files: $BHISTS"
     #
     #######################################################
     # Tot DT
-    START_TIME=$( grep "_init" $LOF | cut -f 10 -d" " )
-    END_TIME=$( grep "End of all" $LOF | cut -f 9 -d" " )
+    START_TIME=$( grep "_init" $LOF | tail -n 1 | cut -f 10 -d" " )
+    END_TIME=$( grep "End of all" $LOF | tail -n 1 | cut -f 9 -d" " )
     # Hours
     H1=$( echo $START_TIME | cut -f 1 -d\: )
     H2=$( echo $END_TIME | cut -f 1 -d\: )
@@ -59,8 +63,8 @@ for EXP_ID in ${LOF_EXP}; do
     S2=$( echo $END_TIME | cut -f 3 -d\: )
     ##echo -e "\n\n\n+--------------------------+"    
     ##echo "TOT time"
-    ##echo "$START_TIME --> $END_TIME" 
-    #echo "H1 M1 S1 = $H1 $M1 $S1 --> H2 M2 S2 = $H2 $M2 $S2"
+    echo "$START_TIME --> $END_TIME" 
+    echo "H1 M1 S1 = $H1 $M1 $S1 --> H2 M2 S2 = $H2 $M2 $S2"
 
     # DELTA computing
      for T_ID in H1 H2 M1 M2 S1 S2 ; do

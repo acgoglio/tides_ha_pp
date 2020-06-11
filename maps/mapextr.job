@@ -5,7 +5,7 @@
 #BSUB -cwd "/work/ag15419/job_scratch/%J/"
 #BSUB -q serial_24h
 #BSUB -n 1    # Number of CPUs
-#
+#BSUB -P 0284 
 #
 # ACG 04/11/2019
 # Script for map TS extraction 
@@ -144,11 +144,11 @@ SRC_DIR="/users/home/ag15419/tides_pp/maps"
 
        MAP3D_OUTFILE=$( echo "$MAP3D_OUTFILE_TPL" | sed -e "s/%LEV%/$VLEV/g" -e "s/%FIELD%/${VAR}/g" -e "s/%ANA_STARTDATE%/${ANA_STARTDATE}/g" -e "s/%ANA_ENDDATE%/${ANA_ENDDATE}/g" -e "s/%INDATASET%/${ANA_INTAG[$IDX_IN]}/g" )
 
-     #  for M_IDX in ${SEASON_MONTHS[@]}; do
-     #      STRING_TMP=$( echo "$MAP3D_SEASON_OUTFILE_TPL" | sed -e "s/%LEV%/$VLEV/g" -e "s/%FIELD%/${VAR}/g" -e "s/%ANA_STARTDATE%/${ANA_STARTDATE}/g" -e "s/%ANA_ENDDATE%/${ANA_ENDDATE}/g" -e "s/%INDATASET%/${ANA_INTAG[$IDX_IN]}/g" -e "s/%MONTHS%/$M_IDX/g" )
-     #      echo ${STRING_TMP}
-     #      declare MAP3D_OUTFILE_${M_IDX}="$( echo ${STRING_TMP} )"
-     #  done
+      # for M_IDX in ${SEASON_MONTHS[@]}; do
+      #     STRING_TMP=$( echo "$MAP3D_SEASON_OUTFILE_TPL" | sed -e "s/%LEV%/$VLEV/g" -e "s/%FIELD%/${VAR}/g" -e "s/%ANA_STARTDATE%/${ANA_STARTDATE}/g" -e "s/%ANA_ENDDATE%/${ANA_ENDDATE}/g" -e "s/%INDATASET%/${ANA_INTAG[$IDX_IN]}/g" -e "s/%MONTHS%/$M_IDX/g" )
+      #     echo ${STRING_TMP}
+      #     declare MAP3D_OUTFILE_${M_IDX}="$( echo ${STRING_TMP} )"
+      # done
 
       echo "# MAP extraction from ${ANA_INTAG[$IDX_IN]}" 
       echo "# VAR: ${VAR}" 
@@ -166,8 +166,11 @@ SRC_DIR="/users/home/ag15419/tides_pp/maps"
           # Select or compute var
           if [[ $GRID_TO_EXTRACT == "uv2t" ]]; then
              echo "Computing i=sqrt(uo*uo+vo*vo)..."
-             #cdo expr,'i=sqrt(uo*uo+vo*vo);ut=uo;vt=vo' $MAPEXT name_tmp_${IDX_NC}.nc
-             cdo expr,'ut=uo;vt=vo' $MAPEXT name_tmp_${IDX_NC}.nc
+             # If destaggered with CDO:
+             #cdo expr,'i=sqrt(vozocrtx*vozocrtx+vomecrty*vomecrty);ut=vozocrtx;vt=vomecrty' $MAPEXT name_tmp_${IDX_NC}.nc
+             # If destaggered with Max script:
+             cdo expr,'i=sqrt(uo*uo+vo*vo);ut=uo;vt=vo' $MAPEXT name_tmp_${IDX_NC}.nc
+             ##cdo expr,'ut=uo;vt=vo' $MAPEXT name_tmp_${IDX_NC}.nc
           else
              echo "Selecting VAR:$VAR..." 
              cdo selname,$VAR $MAPEXT name_tmp_${IDX_NC}.nc
@@ -193,12 +196,22 @@ SRC_DIR="/users/home/ag15419/tides_pp/maps"
       # Compute seasonal means on the whole period
       for M_IDX in ${SEASON_MONTHS[@]}; do
            echo "Working on season: $M_IDX .."
-           MAP3D_SEASON_OUTFILE_TMP=$( echo "$MAP3D_SEASON_OUTFILE_TPL" | sed -e "s/%LEV%/$VLEV/g" -e "s/%FIELD%/${VAR}/g" -e "s/%ANA_STARTDATE%/${ANA_STARTDATE}/g" -e "s/%ANA_ENDDATE%/${ANA_ENDDATE}/g" -e "s/%INDATASET%/${ANA_INTAG[$IDX_IN]}/g" -e "s/%MONTHS%/$M_IDX/g" )
+           MAP3D_SEASON_OUTFILE=$( echo "$MAP3D_SEASON_OUTFILE_TPL" | sed -e "s/%LEV%/$VLEV/g" -e "s/%FIELD%/${VAR}/g" -e "s/%ANA_STARTDATE%/${ANA_STARTDATE}/g" -e "s/%ANA_ENDDATE%/${ANA_ENDDATE}/g" -e "s/%INDATASET%/${ANA_INTAG[$IDX_IN]}/g" -e "s/%MONTHS%/$M_IDX/g" )
            cdo selseas,${M_IDX} all_tmp.nc ${M_IDX}_tmp.nc
-           cdo timmean ${M_IDX}_tmp.nc $MAP3D_SEASON_OUTFILE_TMP
+           cdo timmean ${M_IDX}_tmp.nc $MAP3D_SEASON_OUTFILE
            #rm all_tmp.nc
            rm ${M_IDX}_tmp.nc
        done
+
+      # Compute monthly means on the whole period
+      if [[ $MONTHLY_FLAG == 1 ]]; then
+         echo "Working on single months.."
+           MAP3D_MONTH_OUTFILE=$( echo "$MAP3D_MONTH_OUTFILE_TPL" | sed -e "s/%LEV%/$VLEV/g" -e "s/%FIELD%/${VAR}/g" -e "s/%ANA_STARTDATE%/${ANA_STARTDATE}/g" -e "s/%ANA_ENDDATE%/${ANA_ENDDATE}/g" -e "s/%INDATASET%/${ANA_INTAG[$IDX_IN]}/g" )
+           cdo monmean all_tmp.nc ${MAP3D_MONTH_OUTFILE}_all.nc
+           cdo splitmon ${MAP3D_MONTH_OUTFILE}_all.nc ${MAP3D_MONTH_OUTFILE} 
+           rm ${MAP3D_MONTH_OUTFILE}_all.nc 
+           #rm all_tmp.nc
+       fi
 
      # for SEASON in ${SEASON_MONTHS[@]}; do
      #     cdo selseas,$SEASON all_tmp.nc ${SEASON}_tmp.nc

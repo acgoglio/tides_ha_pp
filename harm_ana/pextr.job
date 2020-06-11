@@ -6,6 +6,7 @@
 #BSUB -cwd "/work/ag15419/job_scratch/%J/"
 #BSUB -q serial_24h
 #BSUB -n 1    # Number of CPUs
+#BSUB -P 0284
 #
 # ACG 23/06/2019
 # Script for TS extraction  
@@ -165,10 +166,28 @@ set -e
       # Extraction
       IDX_NC=0
       for TSEXT in $EXT_INS; do
-     
+
+        # nearest 4 POINTS (if land)
+        if [[ $EXTR_POINT_NUM == 4 ]]; then
         # Point selection With land/sea mask (Nan)
-        cdo setctomiss,0.0000 $TSEXT miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
-        cdo -remapdis,lon=${COO_TS_LON[$TS_IDX]}/lat=${COO_TS_LAT[$TS_IDX]} miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc tsext_tmp_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}_${IDX_NC}.nc
+           cdo setctomiss,0.0000 $TSEXT miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+           cdo -remapdis,lon=${COO_TS_LON[$TS_IDX]}/lat=${COO_TS_LAT[$TS_IDX]} miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc tsext_tmp_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}_${IDX_NC}.nc
+
+        # nearest sea point
+        elif [[ $EXTR_POINT_NUM == 1 ]]; then
+           LON_TOCUT=${COO_TS_LON[$TS_IDX]}
+           LAT_TOCUT=${COO_TS_LAT[$TS_IDX]}
+           LON_INT=$( echo $LON_TOCUT | cut -f 1 -d"." )
+           LAT_INT=$( echo $LAT_TOCUT | cut -f 1 -d"." )
+           cdo sellonlatbox,$(( ${LON_INT} - 2 )),$(( ${LON_INT} + 2 )),$(( ${LAT_INT} - 2 )),$(( ${LAT_INT} + 2 )) $TSEXT red_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+           cdo setctomiss,0.0000 red_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+
+           cdo setmisstonn miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc nnmiss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+           cdo -remapnn,lon=${COO_TS_LON[$TS_IDX]}/lat=${COO_TS_LAT[$TS_IDX]} nnmiss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc tsext_tmp_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}_${IDX_NC}.nc
+           rm -v red_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+           rm -v nnmiss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+        fi
+
         IDX_NC=$(( ${IDX_NC} + 1 ))
       done
   
@@ -180,10 +199,13 @@ set -e
         cdo mergetime zero_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}*.nc $NC_TS_OUTFILE
 
         #rm -v 00_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+        #rm -v red_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+        #rm -v nnmiss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
         rm -v miss_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
         rm -v mean_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
         rm -v tsext_tmp_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}*.nc
         rm -v zero_${TS_IDX}_${COO_TS_NAME[$TS_IDX]}.nc
+
 
 
      TS_IDX=$(( $TS_IDX + 1 ))

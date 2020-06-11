@@ -18,7 +18,7 @@ from plotly import graph_objects as go # for bar plot
 #
 #######################################################
 where_box='Med' # Med or AtlBox?
-path = '/work/ag15419/tmp/h_ana_miss/' #ext_Atl_Box/' # h_ana_miss/'
+path = '/work/ag15419/tmp/HA_nn/ha_2017new/' #ext_Atl_Box/' # h_ana_miss/'
 iniend_dates= '01/07/2017 - 31/12/2017'
 dates_lab='20170701_20171231'
 name = path
@@ -50,16 +50,16 @@ if where_box == 'Med':
    #stations_col=[ 'blue','green','orange','magenta','green','green','green','orange','blue','green','green','green','orange','blue','blue','blue' ]
 
    # For comparison with Tsimplis et al. 1995
-   stations_obs = ['ancona','carloforte','catania','lampedusa','livorno','ortona','portoempedocle','reggiocalabria','trieste','venezia','vieste']
-   stations_mod = stations_obs
-   stations_lab = ['Ancona','Carloforte','Catania','Lampedusa','Livorno','Ortona','P.Empedocle','R.Calabria','Trieste','Venezia','Vieste']
-   stations_col=[ 'blue','green','orange','green','green','blue','green','orange','blue','blue','blue']
+   #stations_obs = ['ancona','carloforte','catania','lampedusa','livorno','ortona','portoempedocle','reggiocalabria','trieste','venezia','vieste']
+   #stations_mod = stations_obs
+   #stations_lab = ['Ancona','Carloforte','Catania','Lampedusa','Livorno','Ortona','P.Empedocle','R.Calabria','Trieste','Venezia','Vieste']
+   #stations_col=[ 'blue','green','orange','green','green','blue','green','orange','blue','blue','blue']
 
    # x 2017 NO GIRNE
-   #stations_obs = ['ancona','carloforte','catania','imperia','lampedusa','livorno','messina','ortona','palinuro','portoempedocle','portotorres','reggiocalabria','trieste','venezia','vieste']
-   #stations_mod = ['ancona','carloforte','catania','imperia','lampedusa','livorno','messina','ortona','palinuro','portoempedocle','portotorres','reggiocalabria','trieste','venezia','vieste']
-   #stations_lab = ['Ancona','Carloforte','Catania','Imperia','Lampedusa','Livorno','Messina','Ortona','Palinuro','P.Empedocle','P.Torres','R.Calabria','Trieste','Venezia','Vieste']
-   #stations_col=[ 'blue','green','orange','green','green','green','orange','blue','green','green','green','orange','blue','blue','blue' ]
+   stations_obs = ['ancona','carloforte','catania','imperia','lampedusa','livorno','messina','ortona','palinuro','portoempedocle','portotorres','reggiocalabria','trieste','venezia','vieste']
+   stations_mod = ['ancona','carloforte','catania','imperia','lampedusa','livorno','messina','ortona','palinuro','portoempedocle','portotorres','reggiocalabria','trieste','venezia','vieste']
+   stations_lab = ['Ancona','Carloforte','Catania','Imperia','Lampedusa','Livorno','Messina','Ortona','Palinuro','P.Empedocle','P.Torres','R.Calabria','Trieste','Venezia','Vieste']
+   stations_col=[ 'blue','green','orange','green','green','green','orange','blue','green','green','green','orange','blue','blue','blue' ]
 
 elif where_box == 'AtlBox':
    stations_obs = []
@@ -928,16 +928,16 @@ if where_box == 'Med':
    #stations_col = ['green','red','green','green','green','green','green','magenta','green','red','green','red','green','red','green','green','green','green','green','green','red','green','magenta']
    
    # For comparison with Tsiplis et al. 1995
-   stations_mod = ['Almeria','Malaga','Marseille','PalmadeMallorca']
-   stations_obs = stations_mod
-   stations_lab = ['Almeria','Malaga','Marseille','P.deMallorca']
-   stations_col = ['green','red','green','green']
+   #stations_mod = ['Almeria','Malaga','Marseille','PalmadeMallorca']
+   #stations_obs = stations_mod
+   #stations_lab = ['Almeria','Malaga','Marseille','P.deMallorca']
+   #stations_col = ['green','red','green','green']
 
    # STZ EMODNET OK 2017 HOURLY and RENAMED + EAST MED STZ + NEW MESS
-   #stations_mod = ['Ajaccio','Algeciras','Almeria','Barcelona','Centuri','Ginostra','Ibiza','IleRousse','iske','LaFigueirette','Malaga','Marseille','Melilla','Monaco','Motril','PalmadeMallorca','PortLaNouvelle','PortVendres','Sagunto','Sete','Solenzara','Tarifa','Valencia','zygi1']
-   #stations_obs = ['Ajaccio','Algeciras','Almeria','Barcelona','Centuri','Ginostra','Ibiza','IleRousse','iske','LaFigueirette','Malaga','Marseille','Melilla','Monaco','Motril','PalmadeMallorca','PortLaNouvelle','PortVendres','Sagunto','Sete','Solenzara','Tarifa','Valencia','zygi1']
-   #stations_lab = ['Ajaccio','Algeciras','Almeria','Barcelona','Centuri','Ginostra','Ibiza','IleRousse','iske','LaFigueirette','Malaga','Marseille','Melilla','Monaco','Motril','P.deMallorca','P.LaNouvelle','P.Vendres','Sagunto','Sete','Solenzara','Tarifa','Valencia','zygi1']
-   #stations_col = ['green','red','green','green','green','green','green','green','magenta','green','red','green','red','green','red','green','green','green','green','green','green','red','green','magenta']
+   stations_mod = ['Ajaccio','Algeciras','Almeria','Barcelona','Centuri','Ginostra','Ibiza','IleRousse','iske','LaFigueirette','Malaga','Marseille','Melilla','Monaco','Motril','PalmadeMallorca','PortLaNouvelle','PortVendres','Sagunto','Sete','Solenzara','Tarifa','Valencia','zygi1']
+   stations_obs = ['Ajaccio','Algeciras','Almeria','Barcelona','Centuri','Ginostra','Ibiza','IleRousse','iske','LaFigueirette','Malaga','Marseille','Melilla','Monaco','Motril','PalmadeMallorca','PortLaNouvelle','PortVendres','Sagunto','Sete','Solenzara','Tarifa','Valencia','zygi1']
+   stations_lab = ['Ajaccio','Algeciras','Almeria','Barcelona','Centuri','Ginostra','Ibiza','IleRousse','iske','LaFigueirette','Malaga','Marseille','Melilla','Monaco','Motril','P.deMallorca','P.LaNouvelle','P.Vendres','Sagunto','Sete','Solenzara','Tarifa','Valencia','zygi1']
+   stations_col = ['green','red','green','green','green','green','green','green','magenta','green','red','green','red','green','red','green','green','green','green','green','green','red','green','magenta']
  
    ##
 if where_box == 'AtlBox':

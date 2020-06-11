@@ -1,0 +1,16 @@
+\begin{table}\begin{tabular}{||c||c|c|c||}     \hline     \hline     & \multicolumn{3}{c||}{Absolute bias $\|Mod-Obs\|$} \\     \hline     Tidal & Max & 95th percentile & Mean \\     components & & & \\     \hline     \hlineM2  &  32.83 $^{\circ}$ ({\color{orange}{Messina}})&  25.91 $^{\circ}$ & 5.0 $^{\circ}$ \\ 
+\hline
+S2  &  37.31 $^{\circ}$ ({\color{orange}{Messina}})&  22.2 $^{\circ}$ & 8.4 $^{\circ}$ \\ 
+\hline
+K1  &  67.64 $^{\circ}$ ({\color{orange}{Messina}})&  30.44 $^{\circ}$ & 5.1 $^{\circ}$ \\ 
+\hline
+O1  &  116.72 $^{\circ}$ ({\color{orange}{Messina}})&  69.33 $^{\circ}$ & 10.0 $^{\circ}$ \\ 
+\hline
+N2  &  51.49 $^{\circ}$ ({\color{orange}{Messina}})&  17.67 $^{\circ}$ & 8.1 $^{\circ}$ \\ 
+\hline
+P1  &  335.08 $^{\circ}$ ({\color{orange}{Messina}})&  43.95 $^{\circ}$ & 10.9 $^{\circ}$ \\ 
+\hline
+Q1  &  107.63 $^{\circ}$ ({\color{orange}{Messina}})&  68.78 $^{\circ}$ & 14.0 $^{\circ}$ \\ 
+\hline
+K2  &  34.54 $^{\circ}$ ({\color{orange}{Messina}})&  25.67 $^{\circ}$ & 14.6 $^{\circ}$ \\ 
+\hline

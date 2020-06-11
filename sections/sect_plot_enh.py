@@ -38,7 +38,7 @@ num_of_models = 2 # 1 for dataset maps or 2 for diffs between 2 datasets
 dataset_name = 'diff' # '8' (or 'GBmod') for Tides_8 run, 'ctrl' for the Control run or 'diff' for computing the diffs
 #---------------------
 # work dir path (WARNING: file in the directory will be removed..)
-workdir_path = '/work/ag15419/tmp/GBmod/vsect_diff/'
+workdir_path = '/work/ag15419/tmp/SSH_25cm/sect_diff/'
 #workdir_path = '/work/ag15419/tmp/sect_ana_'+grid+dataset_name+'_me/'
 #workdir_path = '/work/ag15419/tmp/sect_ana_Sflux'+'/'
 #workdir_path = '/work/ag15419/tmp/sect_ana_'+grid+'diff_gbv'+'/'
@@ -59,7 +59,7 @@ print ('Periods of analysis: ',period_of_analysis)
 #--------------------
 lat_range='ALL' # 'ALL' or 2elements array
 lon_range='ALL'  # 'ALL' or 2elements array, e.g. [-8.000,-4.000] 
-sect_label='GBv' # GB,SI,ME,GBv
+sect_label='GB' # GB,SI,ME,GBv
 sect_name='Gibraltar' #'Gibraltar' 'Sicily','Messina'
 depth_first_layer=-300
 depth_inf=-1500
@@ -167,10 +167,10 @@ elif num_of_models == 2:
    model_path=workdir_path
    model_infileprename='sect'
    model_fileprename='diff_sect'
-   model_postname=['mod_Tides8','mod_Control_run']
-   model_label=['Tides_8 run','Control run']
-   #model_postname=['mod_GBmod_run','mod_Tides8']
-   #model_label=['GBmod run','Tides_8 run']
+   model_postname=['mod_Tides8-25cm','mod_Control_run']
+   model_label=['Tides_8-25cm','Control run']
+   #model_postname=['mod_Tides8-25cm','mod_Tides8']
+   #model_label=['Tides8-25cm','Tides_8']
    #model_postname=['mod_GBmod_run','mod_Control_run']
    #model_label=['GBmod run run','Control run']
    thresh_f=-0.0 # To have a narrow palette (for U = -0.05; for T = 0.0 )
@@ -628,19 +628,19 @@ elif num_of_models == 2:
                # Built the palette 
                vals_max=np.amax(vals) # vals_ma
                vals_min=np.amin(vals) # vals_ma
-              # if var_3d == 'votemper':
+              #if var_3d == 'votemper':
                   #vals_thresc=(abs(vals_max)+abs(vals_min))/2
-              #    vals_thresc=max(abs(vals_max),abs(vals_min))
+               vals_thresc=max(abs(vals_max),abs(vals_min))
               # elif var_3d == 'vovecrtz':
               #    vals_thresc=(abs(vals_max)+abs(vals_min))/2
               # else:
                   #vals_thresc=min(abs(vals_max),abs(vals_min))+thresh_f
                #vals_thresc=max(abs(vals_max),abs(vals_min))
                #vals_thresc=(abs(vals_max)+abs(vals_min))/2
-               if var_3d == 'votemper':
-                  vals_thresc=1.5
-               elif var_3d == 'vosaline':
-                  vals_thresc=0.6
+               #if var_3d == 'votemper':
+               #   vals_thresc=1.5
+               #elif var_3d == 'vosaline':
+               #   vals_thresc=0.6
                # TO BE REMOVED:
                #if var_3d == 'votemper':
                #   vals_thresc=0.5
@@ -704,8 +704,14 @@ elif num_of_models == 2:
                   plt.xlabel(xlabel_string)
                   plt.xlim(llcrnrcoo,urcrnrcoo)
                   # Plot
+                  if var_3d == 'votemper':
+                      cmap='bwr'
+                  elif var_3d == 'vosaline':
+                      cmap='BrBG'
+                  else:
+                      cmap='bwr'
                   ##cs = plt.pcolor(coos,depths_inv,np.squeeze(vals_ma),cmap='bwr',vmin=-vals_thresc,vmax=vals_thresc)
-                  cs = plt.pcolor(np.squeeze(coos),-mod_lev,np.squeeze(vals),cmap='bwr',vmin=-vals_thresc,vmax=vals_thresc)
+                  cs = plt.pcolor(np.squeeze(coos),-mod_lev,np.squeeze(vals),cmap=cmap,vmin=-vals_thresc,vmax=vals_thresc)
                   #cs = plt.pcolor(np.squeeze(coos),-mod_lev,np.squeeze(vals_ma),cmap='Reds',vmin=0,vmax=vals_max)
                   #plt.colorbar(mappable=None,label=var_3d+' ['+var_3d_udm+']',orientation='vertical',extend='both')               
                   plt.colorbar(mappable=None,label=var_3d+' ['+var_3d_udm+']',orientation='horizontal',extend='both')

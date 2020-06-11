@@ -32,7 +32,7 @@ set -e
      echo "WARNING: I am going to remove all files in $ANA_WORKDIR ..."
      sleep 10
      for TO_BE_RM in $( ls $ANA_WORKDIR ); do
-         #rm $ANA_WORKDIR/$TO_BE_RM
+         rm $ANA_WORKDIR/$TO_BE_RM
          echo $TO_BE_RM
      done
 

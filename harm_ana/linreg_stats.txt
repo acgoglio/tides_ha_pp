@@ -1,0 +1,8 @@
+\begin{table}\begin{tabular}{||c||c|c||c|c||}     \hline     \hline     & \multicolumn{2}{c||}{Amplitudes} & \multicolumn{2}{c||}{Phases} \\     Tidal components & Slope & $R^{2}$ & Slope & $R^{2}$ \\     \hline     \hlineM2  &  0.87  &  1.0  &  0.98  &  0.99  \\ 
+S2  &  0.88  &  0.99  &  0.99  &  0.99  \\ 
+K1  &  1.02  &  1.0  &  0.97  &  0.99  \\ 
+O1  &  0.84  &  0.96  &  0.95  &  0.84  \\ 
+N2  &  0.89  &  0.99  &  0.97  &  0.99  \\ 
+P1  &  0.99  &  0.99  &  1.02  &  0.9  \\ 
+Q1  &  0.55  &  0.89  &  0.97  &  0.84  \\ 
+K2  &  0.88  &  0.98  &  0.98  &  0.99  \\ 

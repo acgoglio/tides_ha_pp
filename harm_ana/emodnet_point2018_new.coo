@@ -22,7 +22,7 @@
 #5.25000;-52.62000;IlesDuSalutTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_IlesDuSalutTG-60min.nc
 #43.48353;6.93377;LaFigueiretteTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_LaFigueiretteTG-60min.nc
 #46.14870;-1.22590;LaRochelleTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_LaRochelleTG-60min.nc
-38.9084;17.0287;LeCastella;/work/ag15419/tmp/TG_data/%YYYY%/*;MO_TS_TG_RMN-LeCastella_%YYYYMM%.nc
+#38.9084;17.0287;LeCastella;/work/ag15419/tmp/TG_data/%YYYY%/*;MO_TS_TG_RMN-LeCastella_%YYYYMM%.nc
 #48.35930;-4.78090;LeConquetTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_LeConquetTG-60min.nc
 #47.54290;-2.89540;LeCrouestyTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_LeCrouestyTG-60min.nc
 #49.48160;0.10560;LeHavreTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_LeHavreTG-60min.nc

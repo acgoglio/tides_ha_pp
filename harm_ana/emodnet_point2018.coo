@@ -1,6 +1,6 @@
 # ts extraction coo file
 # lat ; lon ; name ; obs path tpl ; obs name tpl
-37.9452;22.9365;corn;/work/ag15419/tmp/TG_data/%YYYY%/*/;DU_%YYYYMM%_TS_MO_IOC_corn.nc
+#37.9452;22.9365;corn;/work/ag15419/tmp/TG_data/%YYYY%/*/;DU_%YYYYMM%_TS_MO_IOC_corn.nc
 36.594230651855;36.176769256592;iske;/work/ag15419/tmp/TG_data/%YYYY%/*/;DU_%YYYYMM%_TS_MO_IOC_iske.nc
 34.726315;33.340228;zygi1;/work/ag15419/tmp/TG_data/%YYYY%/*/;DU_%YYYYMM%_TS_MO_IOC_zygi1.nc
 ##41.92270;8.76290;AjaccioTG;/work/ag15419/tmp/TG_data/%YYYY%/*;GL_%YYYYMM%_TS_MO_AjaccioTG-60min.nc

@@ -32,7 +32,7 @@ exp_mrsp.sh $ExpDir $FilterFile $XmlFile
 if [ -d $ExpDir/exp_mrsp.sh/`basename $XmlFile` ]; then
    FilterFile=`which exp_filter_reduce.sh`
    cd $ExpDir/exp_mrsp.sh/`basename $XmlFile`
-   %REDUCE_COMMAND_LINE%
+   %REDUCE_COMMAND_LINE_MY%
 fi
 
 

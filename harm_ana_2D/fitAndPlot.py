@@ -27,8 +27,8 @@ num_of_models = 1 # 1 for dataset maps or 2 for diffs between 2 datasets
 dataset_name = '8' # '8' for Tides_8 run, 'ctrl' for the Control run or 'diff' for computing the diffs
 #---------------------
 # work dir path (WARNING: file in the directory will be removed..)
-workdir_path = '/work/ag15419/tmp/2d_harm_ana_6'+'/'
-archive_path = '/work/ag15419/arc_pp/h_arc/map_ha'+'/'
+workdir_path = '/work/ag15419/tmp/HA_nn/ha_map/'+'/'
+archive_path = '/work/ag15419/tmp/HA_nn/ha_map/'+'/'
 path = '/work/ag15419/tmp/2d_harm_ana/'
 # dates
 #---------------------

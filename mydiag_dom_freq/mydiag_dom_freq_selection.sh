@@ -18,7 +18,7 @@ echo "Reading the ini file.."
 ls 
 INIFILE="mydiag_dom_freq.ini"
 if [[ -f ./${INIFILE} ]]; then
-   source ${INIFILE}
+   source ./${INIFILE}
    echo "..Done!"
 else
    echo "I cannot find the ini file ${INIFILE}..Why?! The file MUST be stored in the same dir of this script.. "
@@ -49,7 +49,7 @@ fi
 # Domain check and setting
 if [[ $DOMAIN == 'med' ]]; then
    DOMAIN_NAME=$DOMAIN
-   DOMAIN=" [  [[-5.99 , 1 ], [34,42]] , [[0,36.3],[30.19,45.99]] ] "
+   DOMAIN="[  [[-5.99 , 1 ], [34,42]] , [[0,36.3],[30.19,45.99]] ]"
    echo "Working on Mediterranean Basin.."
    echo "Coordinates: $DOMAIN"
    sleep 3
@@ -79,7 +79,8 @@ if [[ $FREQ == '1d' ]]; then
    KEY_VOSALINE="tem_s_all_l"
    KEY_2D="tem_t"
    #
-   REDUCE_COMMAND_LINE='bsub -J `basename $0` -o log_out.%J -e log_err.%J -q serial_6h -R "rusage[mem=5000]" "$FilterFile $ExpDir/exp_mrsp.sh/`basename $XmlFile` | mapreduce.py $XmlFile"'
+   REDUCE_COMMAND_LINE_EXP='bsub -J `basename $YYYYMM` -o log_out.%J -e log_err.%J -q serial_6h -R "rusage[mem=5000] -P 0284" "$FilterFile $ExpDir/exp_mrsp.sh/`basename $XmlFile` | mapreduce.py $XmlFile"'
+   REDUCE_COMMAND_LINE_MY='bsub -J `basename $0` -o log_out.%J -e log_err.%J -q serial_6h -R "rusage[mem=5000] -P 0284" "$FilterFile $ExpDir/exp_mrsp.sh/`basename $XmlFile` | mapreduce.py $XmlFile"'
    REDUCED_LN_LIST='make_list $wdir tra_t_gb_ts.nc ; make_list $wdir tra_p_gb_ts.nc ; make_list $wdir tra_n_gb_ts.nc ; make_list $wdir tra_t_sc_ts.nc ; make_list $wdir tra_p_sc_ts.nc ; make_list $wdir tra_n_sc_ts.nc ; make_list $wdir tra_t_ot_ts.nc ; make_list $wdir tra_p_ot_ts.nc ; make_list $wdir tra_n_ot_ts.nc ; make_list $wdir tra_t_co_ts.nc ; make_list $wdir tra_p_co_ts.nc ; make_list $wdir tra_n_co_ts.nc ; make_list $wdir tra_t_me_ts.nc ; make_list $wdir tra_p_me_ts.nc ; make_list $wdir tra_n_me_ts.nc ; make_list $wdir T.nc_SST_ts.nc ; make_list $wdir T.nc_0_150_ts.nc ; make_list $wdir T.nc_150_600_ts.nc ; make_list $wdir T.nc_600_btm_ts.nc ; make_list $wdir T.nc_basin_ts.nc ; make_list $wdir S.nc_SSS_ts.nc ; make_list $wdir S.nc_0_150_ts.nc ; make_list $wdir S.nc_150_600_ts.nc ; make_list $wdir S.nc_600_btm_ts.nc ; make_list $wdir S.nc_basin_ts.nc ; make_list $wdir sossheig_ts.nc ; make_list $wdir somxl010_ts.nc ; make_list $wdir sohefldo_ts.nc ; make_list $wdir sowaflup_ts.nc ; make_list $wdir soevapor_ts.nc ; make_list $wdir soprecip_ts.nc ; make_list $wdir sorunoff_ts.nc ; make_list $wdir soshfldo_ts.nc ; make_list $wdir solofldo_ts.nc ; make_list $wdir sosefldo_ts.nc ; make_list $wdir solafldo_ts.nc ; make_list $wdir velmodw_ts.nc ; make_list $wdir V.nc_SSV_ts.nc ; make_list $wdir V.nc_0_150_ts.nc ; make_list $wdir V.nc_150_600_ts.nc ; make_list $wdir V.nc_600_btm_ts.nc ; make_list $wdir V.nc_basin_ts.nc ; make_list $wdir K.nc_SSK_ts.nc ; make_list $wdir K.nc_0_150_ts.nc ; make_list $wdir K.nc_150_600_ts.nc ; make_list $wdir K.nc_600_btm_ts.nc ; make_list $wdir K.nc_basin_ts.nc'
    #
    if [[ ${DOMAIN_NAME} == "med" ]] || [[ ${DOMAIN_NAME} == "DomainUserDefn" ]] ; then
@@ -110,7 +111,8 @@ elif [[ $FREQ == '1h' ]]; then
    V_TEMPLATEFILE="*_1h_????????_grid_V.nc"
    T_TEMPLATEFILE4MASK="*_1d_????????_grid_T.nc"
    #
-   REDUCE_COMMAND_LINE='bsub -J `basename $0` -o log_out.%J -e log_err.%J -q serial_6h -R "rusage[mem=5000]" "$FilterFile $ExpDir/exp_mrsp.sh/`basename $XmlFile` | grep "grid_T" | mapreduce.py $XmlFile"'
+   REDUCE_COMMAND_LINE_EXP='bsub -J `basename $YYYYMM` -o log_out.%J -e log_err.%J -q serial_6h -R "rusage[mem=5000] -P 0284" "$FilterFile $ExpDir/exp_mrsp.sh/`basename $XmlFile` | grep "grid_T" | mapreduce.py $XmlFile"'
+   REDUCE_COMMAND_LINE_MY='bsub -J `basename $0` -o log_out.%J -e log_err.%J -q serial_6h -R "rusage[mem=5000] -P 0284" "$FilterFile $ExpDir/exp_mrsp.sh/`basename $XmlFile` | grep "grid_T" | mapreduce.py $XmlFile"'
    REDUCED_LN_LIST='make_list $wdir sossheig_ts.nc'
    # 1h fields are 2d so all the 3d fileds analysis must be avoided:
    KEY_VOTEMPER="tem_t_all_l_ko"
@@ -133,15 +135,15 @@ fi
 # Vertical transect settings
 if [[ $TRA_V_SECTION == "GB" ]]; then
    # If you want to change the depth of the section change the last two number..
-   V_TRANSECT_TRA="[  [[-5.48,-5.47 ], [35,37]] , ["d", [[0.5,700]] ] ]"
+   V_TRANSECT_TRA='[  [[-5.48,-5.47 ], [35,37]] , ["d", [[0.5,700]] ] ]'
    echo "I am computing the Gibraltar transport (Med side).."
 elif [[ $TRA_V_SECTION == "GBA" ]]; then
    # If you want to change the depth of the section change the last two number..
-   V_TRANSECT_TRA="[  [[-5.48,-5.47 ], [35,37]] , ["d", [[0.5,700]] ] ]"
+   V_TRANSECT_TRA='[  [[-5.77,-5.78 ], [35,37]] , ["d", [[0.5,700]] ] ]'
    echo "I am computing the Gibraltar transport (Atlantic side).."
 elif [[ $TRA_V_SECTION == "DARD" ]]; then
    # If you want to change the depth of the section change the last two number..
-   V_TRANSECT_TRA="[  [[26.14,26.16 ], [39.97,40.11]] , ["d", [[0.5,600]] ] ]"
+   V_TRANSECT_TRA='[  [[26.14,26.16 ], [39.97,40.11]] , ["d", [[0.5,600]] ] ]'
    echo "I am computing the Dardanelles transport.."
 fi
 
@@ -175,8 +177,8 @@ for FILE_2_BUILT in ${TO_BE_BUILT[@]}; do
     # Mv the old versions of files (just in case..)
     if [[ -f ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT} ]]; then
        echo "An old version of this file has been found.. I am moving it to _old file.. (Just in case!!)"
-       #mv -v ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT} ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT}_old
-       #rm -v ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT} ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT}
+       mv -v ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT} ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT}_old
+       rm -v ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT} ${EXP_PATH}/${WHERE_2_BUILT}/${FILE_2_BUILT}
        echo "Done!"
     fi
 
@@ -184,6 +186,8 @@ for FILE_2_BUILT in ${TO_BE_BUILT[@]}; do
     SED_FILE=sed_file.txt
     cat << EOF > ./${SED_FILE}
    s/%DOMAIN%/${DOMAIN//\//\\/}/g
+   s/%WORK_DIR%/${WORK_DIR//\//\\/}/g
+   s/%EXP_NAME%/${EXP_NAME//\//\\/}/g
    #
    s/%T_TEMPLATEFILE%/${T_TEMPLATEFILE//\//\\/}/g
    s/%U_TEMPLATEFILE%/${U_TEMPLATEFILE//\//\\/}/g
@@ -204,7 +208,8 @@ for FILE_2_BUILT in ${TO_BE_BUILT[@]}; do
    s/%KEY_VOSALINE%/${KEY_VOSALINE//\//\\/}/g
    s/%KEY_2D%/${KEY_2D//\//\\/}/g
    #
-   s/%REDUCE_COMMAND_LINE%/${REDUCE_COMMAND_LINE//\//\\/}/g
+   s/%REDUCE_COMMAND_LINE_MY%/${REDUCE_COMMAND_LINE_MY//\//\\/}/g
+   s/%REDUCE_COMMAND_LINE_EXP%/${REDUCE_COMMAND_LINE_EXP//\//\\/}/g
    s/%REDUCED_LN_LIST%/${REDUCED_LN_LIST//\//\\/}/g
 EOF
 
@@ -272,3 +277,7 @@ fi
 #
 echo "Thanks for trusting this script!"
 echo "Bye"
+#
+# If for any reason the pack does not want to conctenate the files change and run the following command!!!
+#
+#for TOBEMERGED in $(ls /work/ag15419/arc_link/simu_tides_25cm/exp_mrsp.sh/diag_base.xml/201501/*.nc ); do NOMEDAMERGERE=$(echo $TOBEMERGED | cut -f 9 -d"/"); cdo mergetime /work/ag15419/arc_link/simu_tides_25cm/exp_mrsp.sh/diag_base.xml/??????/$NOMEDAMERGERE /work/ag15419/arc_link/simu_tides_25cm/exp_mrsp.sh/diag_base.xml/$NOMEDAMERGERE ;  done
